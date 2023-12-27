@@ -228,7 +228,26 @@ public class AccountSelectDialog extends JDialog {
 
 		@Override
 		public Component getListCellRendererComponent(JList<? extends SavedSession> list, SavedSession value, int index, boolean isSelected, boolean cellHasFocus) {
-			setText(value.getUsername());
+
+			//adding suffix to name display
+			String suffix = "";
+			switch(value.getType())
+			{
+				case LEGACY:
+					suffix = "Legacy";
+					break;
+				case MOJANG:
+					suffix = SharedLocale.tr("accounts.typeMojangName");
+					break;
+				case MICROSOFT:
+					suffix = "Microsoft";
+					break;
+			}
+			suffix = " (" + suffix + ")";
+
+			setText(value.getUsername() + suffix);
+
+			
 			if (value.getAvatarImage() != null) {
 				setIcon(new ImageIcon(value.getAvatarImage()));
 			} else {

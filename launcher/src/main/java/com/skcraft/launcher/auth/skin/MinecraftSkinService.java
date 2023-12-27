@@ -27,4 +27,16 @@ public class MinecraftSkinService {
 			return null;
 		}
 	}
+
+	//just get skin from url alternative
+	public static byte[] fetchSkinHead(String skinUrl) throws InterruptedException {
+		try {
+			byte[] skin = downloadSkin(skinUrl);
+
+			return SkinProcessor.renderHead(skin);
+		} catch (IOException e) {
+			log.log(Level.WARNING, "Failed to download or process skin.", e);
+			return null;
+		}
+	}
 }

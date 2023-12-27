@@ -7,6 +7,7 @@
 package com.skcraft.launcher.auth;
 
 import com.fasterxml.jackson.annotation.*;
+import com.skcraft.launcher.auth.skin.MinecraftSkinService;
 import com.skcraft.launcher.util.HttpRequest;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -58,10 +59,18 @@ public class YggdrasilLoginService implements LoginService {
 
             if (profile == null) return null; // Minecraft not owned
 
-            if (previous != null && previous.getAvatarImage() != null) {
-                profile.setAvatarImage(previous.getAvatarImage());
-            }
+            //if (previous != null && previous.getAvatarImage() != null) {
+                //profile.setAvatarImage(previous.getAvatarImage());
+            //}
 
+            //else
+            //{
+            // adding head fetching
+                profile.setAvatarImage(MinecraftSkinService.fetchSkinHead(url.toString().replace("/authenticate", "/skin/") + profile.getUuid().replaceFirst("(\\p{XDigit}{8})(\\p{XDigit}{4})(\\p{XDigit}{4})(\\p{XDigit}{4})(\\p{XDigit}+)", "$1-$2-$3-$4-$5" )));
+            //}
+
+
+            // using own auth server - ignoring it:
             // DEPRECEATION: minecraft services API no longer accepts yggdrasil tokens
             // login still works though. until it doesn't, this class will remain
 

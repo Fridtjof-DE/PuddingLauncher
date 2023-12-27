@@ -109,15 +109,22 @@ public class LoginDialog extends JDialog {
         cancelButton.addActionListener(e -> dispose());
     }
 
-    @SuppressWarnings("deprecation")
+    //@SuppressWarnings("deprecation")
+    //keeping for alternative hosting system (Pudding auth)
+    //adding option to not require a password
     private void prepareLogin() {
         if (!usernameText.getText().isEmpty()) {
             String password = passwordText.getText();
 
             if (password == null || password.isEmpty()) {
-                SwingHelper.showErrorDialog(this, SharedLocale.tr("login.noPasswordError"), SharedLocale.tr("login.noPasswordTitle"));
-            } else {
-                attemptLogin(usernameText.getText(), password);
+
+                if(Boolean.parseBoolean(launcher.getProperties().getProperty("requirePasswordForYggdrasilLogin")))
+                {
+                    SwingHelper.showErrorDialog(this, SharedLocale.tr("login.noPasswordError"), SharedLocale.tr("login.noPasswordTitle"));
+                } else {
+                    password = "";
+                    attemptLogin(usernameText.getText(), password);
+                }
             }
         } else {
             SwingHelper.showErrorDialog(this, SharedLocale.tr("login.noLoginError"), SharedLocale.tr("login.noLoginTitle"));

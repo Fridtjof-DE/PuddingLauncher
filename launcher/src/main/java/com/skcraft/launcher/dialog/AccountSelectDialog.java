@@ -234,13 +234,13 @@ public class AccountSelectDialog extends JDialog {
 			switch(value.getType())
 			{
 				case LEGACY:
-					suffix = "Legacy";
+					suffix = SharedLocale.tr("accounts.typeNameLegacy");
 					break;
 				case MOJANG:
-					suffix = SharedLocale.tr("accounts.typeMojangName");
+					suffix = SharedLocale.tr("accounts.typeNameMojang");
 					break;
 				case MICROSOFT:
-					suffix = "Microsoft";
+					suffix = SharedLocale.tr("accounts.typeNameMicrosoft");
 					break;
 			}
 			suffix = " (" + suffix + ")";

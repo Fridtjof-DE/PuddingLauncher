@@ -15,6 +15,7 @@ import com.skcraft.concurrency.DefaultProgress;
 import com.skcraft.concurrency.ProgressObservable;
 import com.skcraft.launcher.*;
 import com.skcraft.launcher.auth.Session;
+import com.skcraft.launcher.auth.UserType;
 import com.skcraft.launcher.install.ZipExtract;
 import com.skcraft.launcher.launch.runtime.JavaRuntime;
 import com.skcraft.launcher.launch.runtime.JavaRuntimeFinder;
@@ -295,6 +296,15 @@ public class Runner implements Callable<Process>, ProgressObservable {
             if (!Strings.isNullOrEmpty(rawJvmArgs)) {
                 flags.addAll(JavaProcessBuilder.splitArgs(rawJvmArgs));
             }
+        }
+
+        //adding authlib-injector to start args
+        if(session.getUserType().equals(UserType.MOJANG))
+        {
+            String authUrl = launcher.getProperties().getProperty("yggdrasilAuthLibInjectorAuthUrl");
+            String authJar = instance.getContentDir().toString() + "/authlib-injector.jar";
+            String authArg = "-javaagent:" + authJar + "=" + authUrl;
+            flags.add(authArg);
         }
 
         List<GameArgument> javaArguments = versionManifest.getArguments().getJvmArguments();

@@ -123,9 +123,9 @@ public class LoginDialog extends JDialog {
                     SwingHelper.showErrorDialog(this, SharedLocale.tr("login.noPasswordError"), SharedLocale.tr("login.noPasswordTitle"));
                 } else {
                     password = "";
-                    attemptLogin(usernameText.getText(), password);
                 }
             }
+            attemptLogin(usernameText.getText(), password);
         } else {
             SwingHelper.showErrorDialog(this, SharedLocale.tr("login.noLoginError"), SharedLocale.tr("login.noLoginTitle"));
         }
